@@ -12,11 +12,9 @@ dotenv.config();
 /*DATABASE-CONNECTION*/
 mongoose.connect(process.env.MONGO_URL).then(() => console.log("DB connection successfull...🤗")).catch((err) => console.log(err));
 
-app.get("/api/test", () => {
-  console.log('Test is working...');
-});
+app.use(express.json());
 
-app.use("/api/user", userroute);
+app.use("/api/users", userroute);
 
 /*CONNECTION-PORT*/
 app.listen(process.env.PORT || 5000, () => {
