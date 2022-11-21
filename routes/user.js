@@ -1,12 +1,14 @@
 /*IMPORTED-VERIFY-TOKEN*/
-const { verifyToken, verifyTokenAndAuthorization } = require("./verifyToken");
+const { verifyTokenAndAuthorization } = require("./verifyToken");
 
 /*IMPORT-EXPRESS*/
 const express = require("express");
-const User = require("../models/User");
 const router = express.Router();
 
-/*UPDATE*/
+/*IMPORTED-MODELS*/
+const User = require("../models/User");
+
+/*UPDATE-USER*/
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   if (req.body.password) {
     req.body.password = CryptoJS.AES.encrypt(

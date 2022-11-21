@@ -1,8 +1,11 @@
+/*IMPORTED-EXPRESS*/
 const express = require("express");
 const router = express.Router();
+
+/*IMPORTED-JSONWEBTOKEN*/
 const jwt = require("jsonwebtoken");
 
-/*CRIPTOJS*/
+/*IMPORTED-CRIPTOJS*/
 const CryptoJS = require("crypto-js");
 
 const User = require("../models/User");
@@ -28,6 +31,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
+/*LOGIN*/
 router.post("/login", async (req, res) => {
   const { username } = req.body;
 
