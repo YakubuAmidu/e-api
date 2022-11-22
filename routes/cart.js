@@ -1,6 +1,10 @@
 /*IMPORT-COMPONENTS*/
 const Cart = require("../models/Cart");
-const { verifyToken, verifyTokenAndAuthorization } = require("./verifyToken");
+const {
+  verifyToken,
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+} = require("./verifyToken");
 
 /*IMPORTED-EXPRESS*/
 const express = require("express");
@@ -40,6 +44,26 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
     await new Cart.findByIdAndDelete(req.params.id);
     res.status(200).json("Items have been deleted from your cart...");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+/*GET-USER-CART*/
+router.get("/find/:id", verifyTokenAndAuthorization, async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ userId: req.params.userId });
+    res.status(200).json(cart);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+/*GET-ALL-CART*/
+router.get("/", verifyTokenAndAdmin, async (req, res) => {
+  try {
+    const cart = await Cart.findById();
+    res.status(200).json(cart);
   } catch (err) {
     res.status(500).json(err);
   }
