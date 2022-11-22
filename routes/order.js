@@ -12,7 +12,7 @@ const express = require("express");
 const router = express.Router();
 
 /*CREATE-ORDER*/
-router.post("/:id", verifyToken, async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   const newOrder = new Order(req.body);
 
   try {
