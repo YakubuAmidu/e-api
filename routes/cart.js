@@ -1,6 +1,6 @@
 /*IMPORT-COMPONENTS*/
 const Cart = require("../models/Cart");
-const { verifyToken } = require("./verifyToken");
+const { verifyToken, verifyTokenAndAuthorization } = require("./verifyToken");
 
 /*IMPORTED-EXPRESS*/
 const express = require("express");
@@ -30,6 +30,16 @@ router.put("/:id", verifyToken, async (req, res) => {
       { new: true }
     );
     res.status(200).json(updatedCart);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+/*DELETE-CART*/
+router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
+  try {
+    await new Cart.findByIdAndDelete(req.params.id);
+    res.status(200).json("Items have been deleted from your cart...");
   } catch (err) {
     res.status(500).json(err);
   }
